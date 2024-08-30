@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Recommender System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #ff6347;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #4682b4;
+            font-size: 1.5em;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        input[type="file"] {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            background: #f0f0f0;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        input[type="file"]:hover {
+            background: #ddd;
+            color: #000;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            color: #fff;
+            background: #ff6347;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #e5533d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fashion Recommender System</h1>
+        <h3>By Rashid Patel</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <br><br>
+            <button type="submit">Upload and Recommend</button>
+        </form>
+
+        {% if user_image %}
+            <h3>You provided this item:</h3>
+            <img src="{{ url_for('static', filename='uploads/' + user_image) }}" alt="User Image">
+
+            <h3>You might also like these:</h3>
+            <div class="image-container">
+                {% for img in recommendations %}
+                    <img src="{{ url_for('static', filename=img) }}" alt="Recommended Image">
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
